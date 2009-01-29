@@ -577,3 +577,65 @@ El método +_association_=+ asgina a este objeto un objeto asociado. Detrás de 
 -------------------------------------------------------
 @order.customer = @customer
 -------------------------------------------------------
+
+===== +_association_.nil?+
+
+El método +_association_.nil?+ retorna true si no hay un objeto asociado.
+
+[source, ruby]
+-------------------------------------------------------
+if @order.customer.nil?
+  @msg = "No customer found for this order"
+end
+-------------------------------------------------------
+
+===== +build___association__(attributes = {})+
+
+El método +build__\_association__+ retorna un nuevo objeto del tipo asociado. Este objeto será instanciado desde los atributos pasados, y será definida la unión a este através de la clave foránea del objeto, pero el objeto asociado no se guardará aún.
+
+[source, ruby]
+-------------------------------------------------------
+@customer = @order.build_customer({:customer_number => 123, :customer_name => "John Doe"})
+-------------------------------------------------------
+
+===== +create___association__(attributes = {})+
+
+El método +build__\_association__+ retorna un nuevo objeto del tipo asociado. Este objeto será instanciado desde los atributos pasados, y será definida la unión a este através de la clave foránea del objeto. Por otro lado, el objeto asociado _será_ guardará (asumiendo que este pasó las validaciones).
+
+[source, ruby]
+-------------------------------------------------------
+@customer = @order.create_customer({:customer_number => 123, :customer_name => "John Doe"})
+-------------------------------------------------------
+
+==== Opciones para +belongs_to+
+
+En muchas situaciones, podrá usar el comportamiento por defecto de +belongs_to+ sin ninguna personalización. Pero a pesar del énfasis de Rails de la convención sobre la configuración, puede cambiar este comportamiento de diferentes maneras. Esta sección abarca la opciones que puede usar cuand crea una asociación +belongs_to+. Por ejemplo, una asociación con diferentes opciones podría ser así:
+
+[source, ruby]
+-------------------------------------------------------
+class Order < ActiveRecord::Base
+  belongs_to :customer, :counter_cache => true, :conditions => "active = 1"
+end
+-------------------------------------------------------
+
+La opción +belongs_to+ soporta las siguientes opciones:
+
+// * +:accessible+
+* +:class_name+
+* +:conditions+
+* +:counter_cache+
+* +:dependent+
+* +:foreign_key+
+* +:include+
+* +:polymorphic+
+* +:readonly+
+* +:select+
+* +:validate+
+
+// ===== +:accessible+
+//
+// The +:accessible+ option is the association version of +ActiveRecord::Base#attr_accessible+. If you set the +:accessible+ option to true, then mass // assignment is allowed for this association.
+//
+
+
+
