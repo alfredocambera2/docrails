@@ -20,21 +20,21 @@ Esta guía no te enseñara a escribir una aplicación Rails; se asume una famili
 
 Casi toda aplicación de Rails interactúa mucho con una base de datos - y, como resultado, tus pruebas también necesitaran una base de datos con la cual interactuar. Para escribir pruebas eficientes, deberás comprender como configurar esta base de datos y como poblarla con datos de muestra.
 
-=== The 3 Environments ===
+=== Los 3 ambientes ===
 
-Testing support was woven into the Rails fabric from the beginning. It wasn't an "oh! let's bolt on support for running tests because they're new and cool" epiphany. One of the consequences of this design decision is that every Rails application you build has 3 sides: a side for production, a side for development, and a side for testing.
+El soporte para pruebas fue tejido en la tela de Rails desde el comienzo. No fue algo como una epifanía tipo "¡ah! incluyamos soporte para correr pruebas porque es algo nuevo y cool". Una de las consecuencias de esta decisión de diseño es que todas las aplicaciones Rails que construyas tienen 3 caras: una para producción, una para desarrollo, y una para pruebas.
 
-One place you'll find this distinction is in the +config/database.yml+ file. This YAML configuration file has 3 different sections defining 3 unique database setups:
+Uno de los lugares donde encontrarás esta distinción es en el archivo +config/database.yml+. Este archivo de configuración YAML tiene 3 secciones diferentes que definen 3 configuraciones únicas de bases de datos:
 
- * production
- * development
- * test
+ * production  (producción)
+ * development (desarrollo)
+ * test        (pruebas)
+ 
+Esto permite que configures e interactúes con datos de prueba sin riesgo a que tus pruebas alteren datos en el ambiente de producción.
 
-This allows you to set up and interact with test data without any danger of your tests altering data from your production environment.
+Por ejemplo, supón que necesitas probar tu nueva función +borra_este_usuario_y_todo_lo_asociado_con_el+. ¿Acaso no querrías correr esto en un ambiente en el que no importe si destruyes datos o no?
 
-For example, suppose you need to test your new +delete_this_user_and_every_everything_associated_with_it+ function. Wouldn't you want to run this in an environment where it makes no difference if you destroy data or not?
-
-When you do end up destroying your testing database (and it will happen, trust me), you can rebuild it from scratch according to the specs defined in the development database. You can do this by running +rake db:test:prepare+.
+Cuando terminas destruyendo tu base de datos de prueba (y pasará, créeme), puedes reconstruirla desde cero de acuerdo a las especificaciones definidas para la base de datos de desarrollo. Puedes hacer esto ejecutando +rake db:test:prepare+.
 
 === Rails Sets up for Testing from the Word Go ===
 
