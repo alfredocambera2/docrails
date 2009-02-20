@@ -114,77 +114,75 @@ Si deseas encontrar más detalles de REST como estilo arquitectónico, estos rec
 * link:http://bitworking.org/news/373/An-Introduction-to-REST[An Introduction to REST] (video tutorial) by Joe Gregorio
 * link:http://en.wikipedia.org/wiki/Representational_State_Transfer[Representational State Transfer] article in Wikipedia
 
-#CONTINUAR-AQUI
-== Creating a New Rails Project
+== Creando un nuevo Proyecto Rails
+Si sigues esta guía, crearás un proyecto Rails llamado +blog+, un blog (muy) sencillo. Antes de empezar a construir la aplicación, necesitas asegurar que tienes Rails instalado.
 
-If you follow this guide, you'll create a Rails project called +blog+, a (very) simple weblog. Before you can start building the application, you need to make sure that you have Rails itself installed.
+=== Instalando Rails
 
-=== Installing Rails
-
-In most cases, the easiest way to install Rails is to take advantage of RubyGems:
+En la mayoría de los casos, la manera más sencilla de instalar Rails es aprovechar las ventajas de las RubyGems:
 
 [source, shell]
 -------------------------------------------------------
 $ gem install rails
 -------------------------------------------------------
 
-NOTE: There are some special circumstances in which you might want to use an alternate installation strategy:
+NOTA: Existen casos especiales en los cuales tal vez quieras utilizar una estrategia alterna de instalación:
 
-* If you're working on Windows, you may find it easier to install link:http://instantrails.rubyforge.org/wiki/wiki.pl[Instant Rails]. Be aware, though, that Instant Rails releases tend to lag seriously behind the actual Rails version. Also, you will find that Rails development on Windows is overall less pleasant than on other operating systems. If at all possible, we suggest that you install a Linux virtual machine and use that for Rails development, instead of using Windows.
-* If you want to keep up with cutting-edge changes to Rails, you'll want to clone the link:http://github.com/rails/rails/tree/master[Rails source code] from github. This is not recommended as an option for beginners, though.
+* Si estas trabajando en Windows, puede ser que encuentres que es más fácil instalar link:http://instantrails.rubyforge.org/wiki/wiki.pl[Instant Rails]. Hay que tomar en cuenta que las versiones incluidas en Instant Rails generalmente están muy atrasadas en relación a las versiones actuales de Rails. También encontrarás que el desarrollo con Rails en Windows es en general menos placentero que en otros sistemas operativos. Si es posible, te sugerimos que instales una máquina virtual Linux y la uses para desarrollo con Rails en lugar de usar Windows.
+* Si quieres seguir los cambios más recientes de Rails, podrías clonar el link:http://github.com/rails/rails/tree/master[Rails source code] desde githun. Sin embargo esta no es una opción recomendable para principiantes.
 
-=== Creating the Blog Application
+=== Creando la Aplicación Blog
 
-Open a terminal, navigate to a folder where you have rights to create files, and type:
+Abre una terminal, navega a un directorio donde tengas derechos para crear archivos y teclea:
 
 [source, shell]
 -------------------------------------------------------
 $ rails blog
 -------------------------------------------------------
 
-This will create a Rails application that uses a SQLite database for data storage. If you prefer to use MySQL, run this command instead:
+Esto creará una aplicación Rails que usa una base de datos SQLite para almacenamiento de datos. Si prefieres utilizar MySQL, ejecuta este comando en lugar del anterior:
 
 [source, shell]
 -------------------------------------------------------
 $ rails blog -d mysql
 -------------------------------------------------------
 
-And if you're using PostgreSQL for data storage, run this command:
+Y si estás usando PostgreSQL para el almacenamiento de datos, ejecuta este comando:
 
 [source, shell]
 -------------------------------------------------------
 $ rails blog -d postgresql
 -------------------------------------------------------
 
-In any case, Rails will create a folder in your working directory called +blog+. Open up that folder and explore its contents. Most of the work in this tutorial will happen in the +app/+ folder, but here's a basic rundown on the function of each folder that Rails creates in a new application by default:
+En cualquier caso, Rails creará un folder en tu directorio de trabajo llamado +blog+. Abre el directorio y explora sus contenidos. La mayor parte de este tutorial se referirá al directorio +app/+, pero a continuación tenemos una breve explicación de la función de cada directorio que Rails crea por defecto en una nueva aplicación:
 
 [grid="all"]
 `-----------`-----------------------------------------------------------------------------------------------------------------------------
 File/Folder Purpose
 ------------------------------------------------------------------------------------------------------------------------------------------
-+README+		This is a brief instruction manual for your application. Use it to tell others what your application does, how to set it up, and so on.
-+Rakefile+	This file contains batch jobs that can be run from the terminal.
-+app/+		Contains the controllers, models, and views for your application. You'll focus on this folder for the remainder of this guide.
-+config/+		Configure your application's runtime rules, routes, database, and more.
-+db/+			Shows your current database schema, as well as the database migrations. You'll learn about migrations shortly.
-+doc/+		In-depth documentation for your application.
-+lib/+		Extended modules for your application (not covered in this guide).
-+log/+		Application log files.
-+public/+		The only folder seen to the world as-is.  This is where your images, javascript, stylesheets (CSS), and other static files go.
-+script/+		Scripts provided by Rails to do recurring tasks, such as benchmarking, plugin installation, and starting the console or the web server.
-+test/+		Unit tests, fixtures, and other test apparatus. These are covered in link:../testing_rails_applications.html[Testing Rails Applications]
-+tmp/+		Temporary files
-+vendor/+		A place for third-party code. In a typical Rails application, this includes Ruby Gems, the Rails source code (if you install it into your project) and plugins containing additional prepackaged functionality.
++README+		Este es un breve manual de instrucciones para tu aplicación. Úsalo para explicar a los demás lo que hace tu aplicación, como configurarla y demás temas.
++Rakefile+	Este archivo contiene tareas que se pueden ejecutar desde la terminal.
++app/+		Contiene los Controladores, Modelos y Vistas de tu aplicación. Durante el resto de esta guía te enfocarás en este directorio.
++config/+		Guarda las configuraciones de las rutas, bases de datos y características del tiempo de ejecución de la aplicación.
++db/+			Guarda el esquema actual de la base de datos así como las migraciones de base de datos. Pronto aprenderás sobre migraciones.
++doc/+		Documentación detallada de tu aplicación.
++lib/+		Módulos extendidos para tu aplicación (no se cubren en esta guía).
++log/+		Archivos de log de la aplicación.
++public/+		El único directorio que se muestra al mundo como tal. Aquí es donde se guardan tus imágenes, javascripts, hojas de estilo (CSS) y otros archivos estáticos.
++script/+		Scripts provistos por Rails para realizar tareas frecuentes tales como benchmarking?, instalación de plugins, arranque de la consola y del servidor web.
++test/+		Pruebas unitarias, fixtures y artefactos para pruebas. Éstas se documentan en link:../testing_rails_applications.html[Testing Rails Applications]
++tmp/+		Archivos temporales.
++vendor/+		Este es el lugar para el código de terceros. En una aplicación Rails, esto incluye Ruby Gems, el código fuente de Rails (si lo instalaste en tu proyecto) y plugins conteniendo funcionalidad adicional.
 -------------------------------------------------------------------------------------------------------------------------------------------
 
-=== Configuring a Database
+=== Configurando una base de datos
 
-Just about every Rails application will interact with a database. The database to use is specified in a configuration file, +config/database.yml+.
-If you open this file in a new Rails application, you'll see a default database configuration using SQLite. The file contains sections for three different environments in which Rails can run by default:
+Casi cualquier aplicación Rails interactuará con una base de datos. La base de datos a utilizar se especifica en un archivo de configuración, +config/database.yml+.
+Si abres este archivo en una nueva aplicación Rails, encontrarás la configuración por defecto para utilizar SQLite. Este archivo contiene secciones para tres ambientes diferentes en los cuales Rails se ejecuta por defecto:
 
-* The +development+ environment is used on your development computer as you interact manually with the application
-* The +test+ environment is used to run automated tests
-* The +production+ environment is used when you deploy your application for the world to use.
+* El ambiente de desarrollo (+development+) es utilizado en tu computadora de desarrollo mientras interacturas manualmente con la aplicación.
+* El ambiente de pruebas (+test+) se utiliza para ejecutar pruebas automatizadas.
+* El ambiente de producción (+production+) se utiliza para distribuir tu aplicación para ser utilizada por todo el mundo.
 
 ==== Configuring a SQLite Database
 
