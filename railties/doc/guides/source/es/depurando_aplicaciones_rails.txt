@@ -1,16 +1,16 @@
-Debugging Rails Applications
+Depurando Aplicaciones Rails
 ============================
 
-This guide introduces techniques for debugging Ruby on Rails applications. By referring to this guide, you will be able to:
+Esta guía le introducirá a las técnicas de depuración para aplicaciones Ruby on Rails. Empleando esta guía estará en la capacidad de:
 
-* Understand the purpose of debugging
-* Track down problems and issues in your application that your tests aren't identifying
-* Learn the different ways of debugging
-* Analyze the stack trace
+* Comprender el propósito de depurar.
+* Identificar fallos y problemas en la aplicación que las pruebas (test) no están identificaando.
+* Aprender las diferentes formas de depurar
+* Analizar la pila de instrucciones (stack trace)
 
-== View Helpers for Debugging
+== Examinar Ayudantes (Helpers) para la Depuración
 
-One common task is to inspect the contents of a variable. In Rails, you can do this with three methods:
+Una tarea común es inspeccionar el contenido de una variable. En Rails, esto se puede hacer empleando tres métodos:
 
 * `debug`
 * `to_yaml`
@@ -18,7 +18,7 @@ One common task is to inspect the contents of a variable. In Rails, you can do t
 
 === debug
 
-The `debug` helper will return a <pre>-tag that renders the object using the YAML format. This will generate human-readable data from any object. For example, if you have this code in a view:
+El ayudante `debug` regresará una etiqueta <pre> que generara el objeto empleando el formato YAML. Esto generará datos que pueden ser leidos por los humanos a partir de cualquier objeto. Por ejemplo, si tiene el siguiente código en una vista:
 
 [source, html]
 ----------------------------------------------------------------------------
@@ -29,7 +29,7 @@ The `debug` helper will return a <pre>-tag that renders the object using the YAM
 </p>
 ----------------------------------------------------------------------------
 
-You'll see something like this:
+Verá algo como lo siguiente:
 
 [source, log]
 ----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Title: Rails debugging guide
 
 === to_yaml
 
-Displaying an instance variable, or any other object or method, in yaml format can be achieved this way:
+Mostrar una variable de instancia, cualquier otro objeto o método en formato YAML se puede lograr de la siguiente manera: 
 
 [source, html]
 ----------------------------------------------------------------------------
@@ -60,9 +60,9 @@ Displaying an instance variable, or any other object or method, in yaml format c
 </p>
 ----------------------------------------------------------------------------
 
-The `to_yaml` method converts the method to YAML format leaving it more readable, and then the `simple_format` helper is used to render each line as in the console. This is how `debug` method does its magic.
+El método  `to_yaml` convierte el método a formato WAML, haciendolo más legible, luego se usa el ayudante `simple_format` para generar cada linea como en la consola. Así es como el método `debug` hace su mágia.
 
-As a result of this, you will have something like this in your view:
+Como resultado de ello, tendrá algo como siguiente en su vista (view):
 
 [source, log]
 ----------------------------------------------------------------------------
