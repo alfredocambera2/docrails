@@ -81,7 +81,7 @@ Title: Rails debugging guide
 
 === inspect
 
-Another useful method for displaying object values is `inspect`, especially when working with arrays or hashes. This will print the object value as a string. For example:
+Otro método útil para mostrar los valores de un objeto es `inspect`, especialmente cuando se trabaja con arreglos y hashes. Lo siguiente mostrará el valir del objeto como una cadena. Por ejemplo:
 
 [source, html]
 ----------------------------------------------------------------------------
@@ -92,7 +92,7 @@ Another useful method for displaying object values is `inspect`, especially when
 </p>
 ----------------------------------------------------------------------------
 
-Will be rendered as follows:
+Generará algo como lo siguiente:
 
 [source, log]
 ----------------------------------------------------------------------------
@@ -103,13 +103,13 @@ Title: Rails debugging guide
 
 == The Logger
 
-It can also be useful to save information to log files at runtime. Rails maintains a separate log file for each runtime environment.
+Támbien puede ser util para almacenar información en los archivos de bitácora en tiempo de ejecución. Rails mantiene archivos de bitácoras separados para cada entorno de ejecución.
 
-=== What is The Logger?
+=== Ques es el Logger?
 
-Rails makes use of Ruby's standard `logger` to write log information. You can also substitute another logger such as `Log4R` if you wish.
+Rails hace uso del gestor de bitácoras estándar de Ruby,`logger`, para escribir información. El mismo, puede ser reemplazado por otras opciones como `Log4R` si lo desea.
 
-You can specify an alternative logger in your +environment.rb+ or any environment file:
+Se puede especificar un gestor de bitácoras alternativo en el archivo +environment.rb+ o en cualquier archivo del entorno:
 
 [source, ruby]
 ----------------------------------------------------------------------------
@@ -117,7 +117,7 @@ ActiveRecord::Base.logger = Logger.new(STDOUT)
 ActiveRecord::Base.logger = Log4r::Logger.new("Application Log")
 ----------------------------------------------------------------------------
 
-Or in the +Initializer+ section, add _any_ of the following
+O en la sección +Initializer+, agregue _cualquiera_ de los siguientes:
 
 [source, ruby]
 ----------------------------------------------------------------------------
@@ -125,14 +125,14 @@ config.logger = Logger.new(STDOUT)
 config.logger = Log4r::Logger.new("Application Log")
 ----------------------------------------------------------------------------
 
-[TIP]
-By default, each log is created under `RAILS_ROOT/log/` and the log file name is +environment_name.log+.
+[NOTA]
+Por defecto, cada archivo de bitácora es creado bajo `RAILS_ROOT/log/`, donde el nombre del archivo es +entorno_nombre.log+.
 
-=== Log Levels
+=== Niveles de Bitácoras
 
-When something is logged it's printed into the corresponding log if the log level of the message is equal or higher than the configured log level. If you want to know the current log level you can call the `ActiveRecord::Base.logger.level` method.
+Cuando algo es registrado, se envia al archivo correspondiente si el nivel de bitácora del mensaje es mayor o igual que el que se encuentra configurado. Si quiere saber el nivel de bitácora actual, puede llamar al método `ActiveRecord::Base.logger.level`.
 
-The available log levels are: +:debug+, +:info+, +:warn+, +:error+, and +:fatal+, corresponding to the log level numbers from 0 up to 4 respectively. To change the default log level, use
+Los niveles de las bitácoras son: +:debug+, +:info+, +:warn+, +:error+, y +:fatal+, que as su vez corresponde con niveles que van desde el 0 al 4, respectivamente. Para cambiar el nivel de las bitácoras por defecto:
 
 [source, ruby]
 ----------------------------------------------------------------------------
@@ -140,14 +140,14 @@ config.log_level = Logger::WARN # In any environment initializer, or
 ActiveRecord::Base.logger.level = 0 # at any time
 ----------------------------------------------------------------------------
 
-This is useful when you want to log under development or staging, but you don't want to flood your production log with unnecessary information.
+Esto es útil cuando se quiere hacer seguimiento a las bitácoras en los ambientes de desarrollo (development) ó pre-producción (staging), pero no se quiere inundar las bitácoras de producción con información innecesaria.
 
-[TIP]
-The default Rails log level is +info+ in production mode and +debug+ in development and test mode.
+[NOTA]
+El nivel de bitácoras por defecto en Rails es +info+ para el ambiente de producción, y +debug+ para los ambientes de desarrollo y pruebas (testing).
 
-=== Sending Messages
+=== Enviando Mensajes 
 
-To write in the current log use the `logger.(debug|info|warn|error|fatal)` method from within a controller, model or mailer:
+Para escribir en el archivo de bitácoras actual use el método `logger.(debug|info|warn|error|fatal)` desde dentro del controlodor, model o mensajero de correos (mailer):
 
 [source, ruby]
 ----------------------------------------------------------------------------
@@ -156,7 +156,7 @@ logger.info "Processing the request..."
 logger.fatal "Terminating application, raised unrecoverable error!!!"
 ----------------------------------------------------------------------------
 
-Here's an example of a method instrumented with extra logging:
+Aquí hay un ejemplo de un método implementado con niveles de bitácora adicionales:
 
 [source, ruby]
 ----------------------------------------------------------------------------
