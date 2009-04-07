@@ -1,6 +1,6 @@
 Depurando Aplicaciones Rails
 ============================
-
+ 
 Esta guía le introducirá a las técnicas de depuración para aplicaciones Ruby on Rails. Empleando esta guía estará en la capacidad de:
 
 * Comprender el propósito de depurar.
@@ -219,11 +219,11 @@ El depurador empleado por Rails, +ruby-debug+, viene como una gema. Para instala
 $ sudo gem install ruby-debug
 ----------------------------------------------------------------------------
 
-In case you want to download a particular version or get the source code, refer to the link:http://rubyforge.org/projects/ruby-debug/[project's page on rubyforge].
+En el caso de que quiera descargar una versión en particular o obtener el código fuente, consulte link:http://rubyforge.org/projects/ruby-debug/[project's page on rubyforge].
 
-Rails has had built-in support for ruby-debug since Rails 2.0. Inside any Rails application you can invoke the debugger by calling the `debugger` method.
+Rails cuaenta con soporte integrado para ruby-debug desde Rails 2.0. Dentro de cualquier aplicación Rails se puede invocar el depurador mediante una llamada al método `debugger`.
 
-Here's an example:
+Aquí hay un ejemplo:
 
 [source, ruby]
 ----------------------------------------------------------------------------
@@ -235,14 +235,14 @@ class PeopleController < ApplicationController
 end
 ----------------------------------------------------------------------------
 
-If you see the message in the console or logs:
+Si ve el siguiente mensane en la consola o en las bitácoras:
 
 [source, log]
 ----------------------------------------------------------------------------
 ***** Debugger requested, but was not available: Start server with --debugger to enable *****
 ----------------------------------------------------------------------------
 
-Make sure you have started your web server with the option +--debugger+:
+Asegurese de que ha iniciado el servidor Web con la opción +--debugger+:
 
 [source, shell]
 ----------------------------------------------------------------------------
@@ -253,25 +253,25 @@ Make sure you have started your web server with the option +--debugger+:
 ...
 ----------------------------------------------------------------------------
 
-[TIP]
-In development mode, you can dynamically `require \'ruby-debug\'` instead of restarting the server, if it was started without `--debugger`.
+[NOTA]
+En el modo desarrollo, puede hacer lo siguiente de manera dinámica: `require \'ruby-debug\'`, en vez de reiniciar el servidor, en caso de no haberlo iniciado con la opción `--debugger`.
 
-In order to use Rails debugging you'll need to be running either *WEBrick* or *Mongrel*. For the moment, no alternative servers are supported.
+Para usar la depuración en Rails, necesitará estar ejecuando su aplicación sobre *WEBrick* o *Mongrel*. Por el momento no existe soporte para servidores alternativos.
 
-=== The Shell
+=== La Consola
 
-As soon as your application calls the `debugger` method, the debugger will be started in a debugger shell inside the terminal window where you launched your application server, and you will be placed at ruby-debug's prompt `(rdb:n)`. The _n_ is the thread number. The prompt will also show you the next line of code that is waiting to run.
+Tan pronto como su aplicación llama al método `debugger`, el depurador se iniciará en una consola para depuración dentro de la ventana desde cual se está ejecutando el servidor de aplicaciones, luego de lo cual encontrará en el interprete de comandos de ruby-debug `(rdb:n)`. La _n_ indica el número de hilos. El interprete le montrará la siguiente linea de código que se encuentra pendiente por ejecutar.
 
-If you got there by a browser request, the browser tab containing the request will be hung until the debugger has finished and the trace has finished processing the entire request.
+Si llegó allí por una petición desde el navegador, la pestaña (tab) que envió la petición permanecerá en espera hasta que el depurador haya terminado y se haya completado la traza para completar el procesamiento de la petición.
 
-For example:
+Por ejemplo:
 
 ----------------------------------------------------------------------------
 @posts = Post.find(:all)
 (rdb:7)
 ----------------------------------------------------------------------------
 
-Now it's time to play and dig into your application. A good place to start is by asking the debugger for help... so type: `help` (You didn't see that coming, right?)
+Ahora llegó el momento de jugar y examinar su aplicación. U buen lugar para empezar es solicitandole ayuda al depurador... con el comando: `help` (No la viste venir, ¿cierto?)
 
 ----------------------------------------------------------------------------
 (rdb:7) help
@@ -286,10 +286,10 @@ condition  down     finish  list    ps    save     thread  var
 continue   edit     frame   method  putl  set      tmate   where
 ----------------------------------------------------------------------------
 
-[TIP]
-To view the help menu for any command use `help <command-name>` in active debug mode. For example: _+help var+_
+[NOTA]
+Para ver el menu de ayuda de cualquier comando: `help <command-name>` con el modo de depuración activo. Por ejemplo: _+help var+_
 
-The next command to learn is one of the most useful: `list`. You can also abbreviate ruby-debug commands by supplying just enough letters to distinguish them from other commands, so you can also use +l+ for the +list+ command.
+El sigueinte comando que aprederá es uno de los más útiles: `list`. Adicionalmente, se pueden abreviar comandos de ruby-debug siempre y cuando se provean suficientes comandos para distinguirlos de otros ya existentes, así por ejemplo podría usar +l+ para el comando +list+.
 
 This command shows you where you are in the code by printing 10 lines centered around the current line; the current line in this particular case is line 6 and is marked by +=>+.
 
