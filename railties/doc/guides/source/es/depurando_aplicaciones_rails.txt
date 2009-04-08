@@ -308,7 +308,7 @@ Este comando indica en donde se encuetra en el código escribiendo 10 lines cent
    10        format.xml  { render :xml => @posts }
 ----------------------------------------------------------------------------
 
-If you repeat the +list+ command, this time using just `l`, the next ten lines of the file will be printed out.
+Si repite el comando +list+, pero esta vez solo empleando la letra `l`, las próximas diez lineas del archivo se mostrarán.
 
 ----------------------------------------------------------------------------
 (rdb:7) l
@@ -325,9 +325,9 @@ If you repeat the +list+ command, this time using just `l`, the next ten lines o
    20        format.html # show.html.erb
 ----------------------------------------------------------------------------
 
-And so on until the end of the current file. When the end of file is reached, the +list+ command will start again from the beginning of the file and continue again up to the end, treating the file as a circular buffer.
+Y así en lo sucesivo hasta el final del archivo actual. Cuando se haya alcanzado el fin del archivo, el comando +list+ empezará desde el principio del archivo y continuará de nuevo hasta el final, tratando al archivo como un buffer circular.
 
-=== The Context
+=== El Contexto
 
 When you start debugging your application, you will be placed in different contexts as you go through the different parts of the stack.
 
