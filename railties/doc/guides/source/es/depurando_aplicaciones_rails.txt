@@ -291,7 +291,7 @@ Para ver el menu de ayuda de cualquier comando: `help <command-name>` con el mod
 
 El sigueinte comando que aprederá es uno de los más útiles: `list`. Adicionalmente, se pueden abreviar comandos de ruby-debug siempre y cuando se provean suficientes comandos para distinguirlos de otros ya existentes, así por ejemplo podría usar +l+ para el comando +list+.
 
-This command shows you where you are in the code by printing 10 lines centered around the current line; the current line in this particular case is line 6 and is marked by +=>+.
+Este comando indica en donde se encuetra en el código escribiendo 10 lines centradas a los lados de la linea actual; la linea actual en este caso en particular es la número 6 y esta identificada con el los caracteres +=>+.
 
 ----------------------------------------------------------------------------
 (rdb:7) list
