@@ -329,11 +329,11 @@ Y así en lo sucesivo hasta el final del archivo actual. Cuando se haya alcanzad
 
 === El Contexto
 
-When you start debugging your application, you will be placed in different contexts as you go through the different parts of the stack.
+Cuando empiece a depurar una aplicación, podrá ser ubicado en diferentes contextos a medida que se desplaza por las distintas partes de la pila.
 
-ruby-debug creates a content when a stopping point or an event is reached. The context has information about the suspended program which enables a debugger to inspect the frame stack, evaluate variables from the perspective of the debugged program, and contains information about the place where the debugged program is stopped.
+ruby-debug genera contenido cuando se ha alcanzado algún punto de parada o evento. El contexto tiene la inforamción sobre que se encuentra suspendido, lo que le permite al depurador inspeccionar la pila de llamadas, evaluar variables desde la perspectiva de un programa depurador, y contiene información acerca del lugar en donde se ha detenido el programa en el que se esta trabajando.
 
-At any time you can call the `backtrace` command (or its alias `where`) to print the backtrace of the application. This can be very helpful to know how you got where you are. If you ever wondered about how you got somewhere in your code, then `backtrace` will supply the answer.
+En cualquier cualquier momento se puede utilizar el comando `backtrace`(o su alias `where`) para imprimir la pila de llamas de la aplicción. Esto puede ser muy útil para saber como se llegó al lugar donde se esta. Si alguna vez se ha preguntado sobre como ha llegado a algún lugar desde su código, entonces `backtrace` le proveera la respuesta.
 
 ----------------------------------------------------------------------------
 (rdb:5) where
@@ -348,7 +348,7 @@ At any time you can call the `backtrace` command (or its alias `where`) to print
 ...
 ----------------------------------------------------------------------------
 
-You move anywhere you want in this trace (thus changing the context) by using the `frame _n_` command, where _n_ is the specified frame number.
+Es posible desplazarse a cualquier lugar en la pila (lo cual implica cambio de contexto) usando el comando `frame _n_`, en donde _n_  indica el número del frame.
 
 ----------------------------------------------------------------------------
 (rdb:5) frame 2
@@ -356,13 +356,13 @@ You move anywhere you want in this trace (thus changing the context) by using th
        at line /PathTo/project/vendor/rails/actionpack/lib/action_controller/base.rb:1175
 ----------------------------------------------------------------------------
 
-The available variables are the same as if you were running the code line by line. After all, that's what debugging is.
+Las variables disponibles son las mismas que encontraría al ejecutar el código linea por linea. Despúes de todo, eso es lo que hace un depurador.
 
-Moving up and down the stack frame: You can use `up [n]` (`u` for abbreviated) and `down [n]` commands in order to change the context _n_ frames up or down the stack respectively. _n_ defaults to one. Up in this case is towards higher-numbered stack frames, and down is towards lower-numbered stack frames.
+Para moverse hacia arriba o abajo en la pila de instrucciones: Puede utilizar `up [n]` (`u` - método abreviado) para ir hacia arriba y `down [n]` para moverse hacia abajo, con la finalidad de cambiar el contexto un número _n_ de frames hacia arriba o abajo respectivamente. _n_ por defecto a uno. Up en este caso desplaza hacua número superior en los frames de la pila de llamadas, y down desplaza hacia abajo en los frames de la pila de llamadas.
 
-=== Threads
+=== Hilos
 
-The debugger can list, stop, resume and switch between running threads by using the command `thread` (or the abbreviated `th`). This command has a handful of options:
+El depurador puede lista, detener, continuar y cambiar entre los diferentes hilos que se encuentra en ejecución empleando el comando `thread` (o su versión abreviada `th`). Este comando tiene un montón de opciones:
 
 * `thread` shows the current thread.
 * `thread list` is used to list all threads and their statuses. The plus + character and the number indicates the current thread of execution.
@@ -370,13 +370,13 @@ The debugger can list, stop, resume and switch between running threads by using 
 * `thread resume _n_` resumes thread _n_.
 * `thread switch _n_` switches the current thread context to _n_.
 
-This command is very helpful, among other occasions, when you are debugging concurrent threads and need to verify that there are no race conditions in your code.
+Este comando es muy útil, especialmente cuando se necesita depurar hilos concurrentes y para comprobar que no existen condiciones de carrera en el código.
 
-=== Inspecting Variables
+=== Inspeccionando Variables
 
-Any expression can be evaluated in the current context. To evaluate an expression, just type it!
+Cualquier expresión puede ser evaluada en el contexto actual. Para evaluar una expresión, solo escribala!!
 
-This example shows how you can print the instance_variables defined within the current context:
+Este ejemplo muestra como se puede mostrar las variables de instancia (instance_variables) definidas dentro del contexto actual:
 
 ----------------------------------------------------------------------------
 @posts = Post.find(:all)
@@ -384,7 +384,7 @@ This example shows how you can print the instance_variables defined within the c
 ["@_response", "@action_name", "@url", "@_session", "@_cookies", "@performed_render", "@_flash", "@template", "@_params", "@before_filter_chain_aborted", "@request_origin", "@_headers", "@performed_redirect", "@_request"]
 ----------------------------------------------------------------------------
 
-As you may have figured out, all of the variables that you can access from a controller are displayed. This list is dynamically updated as you execute code. For example, run the next line using `next` (you'll learn more about this command later in this guide).
+Como ya se debe haber dado cuenta, se muestran todas las variables que son accedidas desde un controlador. Esta lista es actualizada dinámicamente a medida que ejecuta código. Por ejemplo, ejecute la siguiente linea usando `next` (Aprenderá más sobre este comando en las secciones siguientes de la guía).
 
 ----------------------------------------------------------------------------
 (rdb:11) next
@@ -395,19 +395,19 @@ Processing PostsController#index (for 127.0.0.1 at 2008-09-04 19:51:34) [GET]
 respond_to do |format|
 -------------------------------------------------------------------------------
 
-And then ask again for the instance_variables:
+Preguntemos de nuevo por los valores de las varibles de instancia:
 
 ----------------------------------------------------------------------------
 (rdb:11) instance_variables.include? "@posts"
 true
 ----------------------------------------------------------------------------
 
-Now +@posts+ is a included in the instance variables, because the line defining it was executed.
+Ahora se incluye +@posts+ en las varibales de instancia, debido a que la linea que lo define fué ejecutada.
 
-[TIP]
-You can also step into *irb* mode with the command `irb` (of course!). This way an irb session will be started within the context you invoked it. But be warned: this is an experimental feature.
+[NOTA]
+Támbien puede entrar al modo *irb* con el comando `irb` (¡por supuesto!). De esta forma se iniciará una sesión rib dentro del contexto en el cual fue invocada. Pero cuidado: Esta funcionalidad es experimental.
 
-The `var` method is the most convenient way to show variables and their values:
+El método `var` es la forma más conveniente de mostrar las variables y sus valores:
 
 ----------------------------------------------------------------------------
 var
@@ -417,14 +417,14 @@ var
 (rdb:1) v[ar] l[ocal]                   show local variables
 ----------------------------------------------------------------------------
 
-This is a great way to inspect the values of the current context variables. For example:
+Esta es una forma fenómenal de onspeccionar los valores de las variables en el contexto actual. Por ejemplo:
 
 ----------------------------------------------------------------------------
 (rdb:9) var local
   __dbg_verbose_save => false
 ----------------------------------------------------------------------------
 
-You can also inspect for an object method this way:
+Támbien puede inspeccionar el método de un objeto de esta manera:
 
 ----------------------------------------------------------------------------
 (rdb:9) var instance Post.new
@@ -433,32 +433,32 @@ You can also inspect for an object method this way:
 @new_record = true
 ----------------------------------------------------------------------------
 
-[TIP]
-The commands `p` (print) and `pp` (pretty print) can be used to evaluate Ruby expressions and display the value of variables to the console.
+[NOTA]
+El comando `p` (print) y `pp` (pretty print) pueden ser usador para evaluar expresiones Ruby y mostrar el valor de las variables en la consola.
 
-You can use also `display` to start watching variables. This is a good way of tracking the values of a variable while the execution goes on.
+Támbien puede usar `display` para iniciar el seguimietno de variables. Esta es una buena forma de hacer seguimietno a los variables mientras avanza la ejecución.
 
 ----------------------------------------------------------------------------
 (rdb:1) display @recent_comments
 1: @recent_comments =
 ----------------------------------------------------------------------------
 
-The variables inside the displaying list will be printed with their values after you move in the stack. To stop displaying a variable use `undisplay _n_` where _n_ is the variable number (1 in the last example).
+Las variabes dentro de la lista se mostrarán con sus valores mientras se mueva en la pila. Para dejar de mostrar una variable use `undisplay _n_` donde _n_  indica el número de la variable (1 en el último ejemplo).
 
-=== Step by Step
+=== Paso a Paso
 
-Now you should know where you are in the running trace and be able to print the available variables. But lets continue and move on with the application execution.
+Ahora debe saber en donde se encuentra en la traza que se esta corriendo, así como podor mostrar las variables disponibles. Pero continuemos y sigamos la ejecución de la aplicación.
 
-Use `step` (abbreviated `s`) to continue running your program until the next logical stopping point and return control to ruby-debug.
+Use `step` (abbreviado `s`) para continuar la ejecucón del programa hasta la siguiente punto de parada lógico y regrese el contro a ruby-debug.
 
-[TIP]
-You can also use `step+ _n_` and `step- _n_` to move forward or backward _n_ steps respectively.
+[NOTA]
+Támbien se puede utilizar `step+ _n_` y `step- _n_` para avanzar o retroceser _n_ pasos respectivamente.
 
 You may also use `next` which is similar to step, but function or method calls that appear within the line of code are executed without stopping. As with step, you may use plus sign to move _n_ steps.
 
-The difference between `next` and `step` is that `step` stops at the next line of code executed, doing just a single step, while `next` moves to the next line without descending inside methods.
+La diferencia entre `next` y `step` es que `step` se tiene en la siguiente linea del código ejecutado, haciendo un solo paso, mientras que `next` avanza a la siguiente linea sin desender hacia los métodos.
 
-For example, consider this block of code with an included +debugger+ statement:
+Por ejemplo, consideré este bloque de código con la linea +debugger+ incluida:
 
 [source, ruby]
 ----------------------------------------------------------------------------
@@ -477,8 +477,8 @@ class Author < ActiveRecord::Base
 end
 ----------------------------------------------------------------------------
 
-[TIP]
-You can use ruby-debug while using script/console. Just remember to `require "ruby-debug"` before calling the `debugger` method.
+[NOTA]
+Puede user ruby-debug mientras esta ejecutando script/console. Solo debe recordar que se debe incluir `require "ruby-debug"` antes de la llamanda al método `debugger`.
 
 ----------------------------------------------------------------------------
 /PathTo/project $ script/console
@@ -492,7 +492,7 @@ Loading development environment (Rails 2.1.0)
 )
 ----------------------------------------------------------------------------
 
-With the code stopped, take a look around:
+Con el código detenido, podemos echar un vistaso:
 
 ----------------------------------------------------------------------------
 (rdb:1) list
@@ -507,7 +507,7 @@ With the code stopped, take a look around:
    13  end
 ----------------------------------------------------------------------------
 
-You are at the end of the line, but... was this line executed? You can inspect the instance variables.
+Esta al final de la linea, pero... se ejecutó esta linea? Puede inspeccionar las variables de instancia.
 
 ----------------------------------------------------------------------------
 (rdb:1) var instance
@@ -515,7 +515,7 @@ You are at the end of the line, but... was this line executed? You can inspect t
 @attributes_cache = {}
 ----------------------------------------------------------------------------
 
-+@recent_comments+ hasn't been defined yet, so it's clear that this line hasn't been executed yet. Use the +next+ command to move on in the code:
++@recent_comments+ no ha sido definido todavía, así que es claro que esta linea no ha sido executada. Use el comando +next+ para avanzar en el código:
 
 ----------------------------------------------------------------------------
 (rdb:1) next
@@ -528,26 +528,26 @@ You are at the end of the line, but... was this line executed? You can inspect t
 @recent_comments = []
 ----------------------------------------------------------------------------
 
-Now you can see that the +@comments+ relationship was loaded and @recent_comments defined because the line was executed.
+Ahora puede ver que la relación +@comments+ fué cargada y que @recent_comments fue definida debido a que la linea fué ejecutada.
 
-If you want to go deeper into the stack trace you can move single `steps`, through your calling methods and into Rails code. This is one of the best ways to find bugs in your code, or perhaps in Ruby or Rails.
+Si quiere ir más profundo en la pila de llamadas, puede moverese una "paso" a la vez usando `steps`, a lo largo de los métos que se llaman y dentro del código Rails. Esta es una de las mejores maneras de encontrar bugs en su código, o quizas en Ruby on Rails.
 
-=== Breakpoints
+=== Puntos de Interrupción
 
-A breakpoint makes your application stop whenever a certain point in the program is reached. The debugger shell is invoked in that line.
+Un punto de interrupción hace que su aplicación se detenga  cunado se haya alcanzado cierto punto. La consola del depurador es invocada en esa linea.
 
-You can add breakpoints dynamically with the command `break` (or just `b`). There are 3 possible ways of adding breakpoints manually:
+Se pueden agregar puntos de interrupción de manera dinámica con el comando `break` (o solo `b`). Hay 3 posibles formas de agregar puntos de interrupción de manera manual:
 
-* `break line`: set breakpoint in the _line_ in the current source file.
-* `break file:line [if expression]`: set breakpoint in the _line_ number inside the _file_. If an _expression_ is given it must evaluated to _true_ to fire up the debugger.
-* `break class(.|\#)method [if expression]`: set breakpoint in _method_ (. and \# for class and instance method respectively) defined in _class_. The _expression_ works the same way as with file:line.
+* `break line`: Establece el punto de interrupción en la linea _line_, en el código fuente áctual.
+* `break file:line [if expression]`: Establece el punto de interrupción en el número de linea (_line_) dentro del archivo _file_. Sí se indica una expresión (_expression_), la misma debe ser evaluada como verdadera (_true_) para iniciar el depurador.
+* `break class(.|\#)method [if expression]`: Establece un punto de interrupción en un método (_method_) (. y \# para clases y métodos de instancia respectivamente) Definido en la classe (_class_). La expresión (_expression_) trabaja de la misma forma archivo:linea (file:line).
 
 ----------------------------------------------------------------------------
 (rdb:5) break 10
 Breakpoint 1 file /PathTo/project/vendor/rails/actionpack/lib/action_controller/filters.rb, line 10
 ----------------------------------------------------------------------------
 
-Use `info breakpoints _n_` or `info break _n_` to list breakpoints. If you supply a number, it lists that breakpoint. Otherwise it lists all breakpoints.
+Use `info breakpoints _n_` o `info break _n_` para listar los puntos de interrupción. Si indica el número, se listará ese punto de interrupción. De otra manera se listarán todos los puntos de interrupción.
 
 ----------------------------------------------------------------------------
 (rdb:5) info breakpoints
@@ -555,7 +555,7 @@ Num Enb What
   1 y   at filters.rb:10
 ----------------------------------------------------------------------------
 
-To delete breakpoints: use the command `delete _n_` to remove the breakpoint number _n_. If no number is specified, it deletes all breakpoints that are currently active..
+Para eliminar los puntos de interrupción: emplee  el comando `delete _n_` para eliminar el punto de interrupción número _n_. Si no se h especificado ningún número, elmina todos los puntos de interrupción que se encuentran activos.
 
 ----------------------------------------------------------------------------
 (rdb:5) delete 1
@@ -563,14 +563,15 @@ To delete breakpoints: use the command `delete _n_` to remove the breakpoint num
 No breakpoints.
 ----------------------------------------------------------------------------
 
-You can also enable or disable breakpoints:
+Puede habilitar o deshabilitar los puntos de interrupción:
 
-* `enable breakpoints`: allow a list _breakpoints_ or all of them if no list is specified, to stop your program. This is the default state when you create a breakpoint.
-* `disable breakpoints`: the _breakpoints_ will have no effect on your program.
+* `enable breakpoints`: Habilita una lista o todos los puntos de restauración (si no se especifica ninguna lista), para detener el programa. Este es el estado por defecto en el que se crea un punto de restauración.
+* `disable breakpoints`: Los puntos de restauración no tendrán efecto en el programa.
 
-=== Catching Exceptions
+=== Excepciones de Cacheo (Catching)
 
-The command `catch exception-name` (or just `cat exception-name`) can be used to intercept an exception of type _exception-name_ when there would otherwise be is no handler for it.
+El comando `catch exception-name` (o solo `cat exception-name`) puede ser usado para interceptar una excepción del tipo _nombre-de-excepción_ cuando 
+can be used to intercept an exception of type _exception-name_ when there would otherwise be is no handler for it.
 
 To list all active catchpoints use `catch`.
 
