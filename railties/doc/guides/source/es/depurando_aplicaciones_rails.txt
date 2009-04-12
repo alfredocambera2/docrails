@@ -1,6 +1,6 @@
 Depurando Aplicaciones Rails
 ============================
-  
+   
 Esta guía le introducirá a las técnicas de depuración para aplicaciones Ruby on Rails. Empleando esta guía estará en la capacidad de:
 
 * Comprender el propósito de depurar.
